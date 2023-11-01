@@ -2,7 +2,8 @@ import random
 import re
 import pandas as pd
 #this program is for generating test cases
-
+#Improvement
+#has to have csv extension to be considered valid
 def is_valid_filename(filename):
     """
     Validates the filename against the established convention:
@@ -30,6 +31,8 @@ def is_valid_filename(filename):
     description_pattern = r"([\w_]+)"   # Does it contain the variable name that is captured in the data file?
     #this could possibly be tweaked so that we ensure that the description is relevant to the content of the file
     #this would take some work
+
+    # extension ....
 
     # Full regex pattern
     pattern = f"^{coverage_pattern}_{resolution_pattern}_{data_source_pattern}_{year_pattern}_{description_pattern}\.csv$"
