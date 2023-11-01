@@ -57,7 +57,7 @@ def generate_filename_from_csv(csv_path):
     Example:
     The CSV at '01007.csv.xz' contains data for the state of VA, block group resolution,
     from the 'sdad' data source, and for the year 2022:
-    >>> generate_filename_from_csv('01007.csv.xz')
+    #>>> generate_filename_from_csv('01007.csv.xz')
     'va_bg_sdad_2022_data_description.csv'
     """
 
@@ -120,7 +120,7 @@ def generate_filename_from_csv(csv_path):
 
 
 # Example
-csv_path = "../trynity/venv/ncr_broadbandnow_acs_sdad_2021_perc_income_on_internet.csv"
+csv_path = "/Users/trinityc/PycharmProject/sdc.valid_file_names_playground/ncr_broadbandnow_acs_sdad_2021_perc_income_on_internet.csv"
 new_path = generate_filename_from_csv(csv_path)
 print(new_path)
 #print ("the file" + csv_path + "is now" new_path)

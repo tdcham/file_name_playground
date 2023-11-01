@@ -21,25 +21,28 @@ def is_valid_filename(filename):
 
     state_pattern = "|".join(state_abbreviations)
 
-    # These are the patterns for each segment of the filename
-    coverage_pattern = f"({state_pattern})"
-    resolution_pattern = "(bl|bg|tr|nb|ct|hd|co|pl|pr|bz)"
-    data_source_pattern = "(acs5|lodes|pseo|qwi|mcig|hifld|ookla|webmd|sdad|abc)"
-    year_pattern = r"(\d{4})"
-    description_pattern = r"([\w_]+)"
+    # These are the regex patterns for each segment of the filename
+    coverage_pattern = f"({state_pattern})" #Does it contain a valid coverage area?
+    resolution_pattern = "(bl|bg|tr|nb|ct|hd|co|pl|pr|bz)" #Does it contain a valid resolution? Are the resolutions sorted in order?
+    data_source_pattern = "(acs5|lodes|pseo|qwi|mcig|hifld|ookla|webmd|sdad|abc)" # Does it contain the data source?
+    year_pattern = r"(\d{4})" #Does it contain the time period of the data captured in the file?
 
-    # Full pattern
+    description_pattern = r"([\w_]+)"   # Does it contain the variable name that is captured in the data file?
+    #this could possibly be tweaked so that we ensure that the description is relevant to the content of the file
+    #this would take some work
+
+    # Full regex pattern
     pattern = f"^{coverage_pattern}_{resolution_pattern}_{data_source_pattern}_{year_pattern}_{description_pattern}\.csv$"
 
     return bool(re.match(pattern, filename))
 
 
-# Test
-print(is_valid_filename("al_bg_acs5_2015_adults_health_insured_by_sex.csv"))  # Should print True
-print(is_valid_filename("2461567277782.csv"))  # Should print False
+# # Test
+# print(is_valid_filename("al_bg_acs5_2015_adults_health_insured_by_sex.csv"))  # Should print True
+# print(is_valid_filename("2461567277782.csv"))  # Should print False
 
 
-# Valid components for generating valid filenames
+# these are the components for generating valid filenames
 state_abbreviations = [
     'al', 'ak', 'az', 'ar', 'ca', 'co', 'ct', 'de', 'fl', 'ga',
     'hi', 'id', 'il', 'in', 'ia', 'ks', 'ky', 'la', 'me', 'md',
@@ -50,13 +53,13 @@ state_abbreviations = [
 ]
 resolutions = ["bl", "bg", "tr", "nb", "ct", "hd", "co", "pl", "pr", "bz"]
 data_sources = ["acs5", "lodes", "pseo", "qwi", "mcig", "hifld", "ookla", "webmd", "sdad", "abc"]
-
+#function to produce valid names
 def generate_valid_filename():
-    resolution = random.choice(resolutions) #Does it contain a valid resolution? Are the resolutions sorted in order?
-    data_source = random.choice(data_sources) # •	Does it contain the data source?
-    year = str(random.randint(1900, 2099)) # •	Does it contain the time period of the data captured in the file?
+    state = random.choice(state_abbreviations)# coverage area
+    resolution = random.choice(resolutions)
+    data_source = random.choice(data_sources)
+    year = str(random.randint(1900, 2099))
     description = '_'.join([random.choice('abcdefghijklmnopqrstuvwxyz') for _ in range(random.randint(1, 10))])
-    # Does it contain the variable name that is captured in the data file?
 
     return f"{state}_{resolution}_{data_source}_{year}_{description}.csv"
 
