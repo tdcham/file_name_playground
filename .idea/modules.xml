@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/sdc.valid_file_names_playground.iml" filepath="$PROJECT_DIR$/.idea/sdc.valid_file_names_playground.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../trynity/.idea/trynity.iml" filepath="$PROJECT_DIR$/../trynity/.idea/trynity.iml" />
     </modules>
   </component>
 </project>

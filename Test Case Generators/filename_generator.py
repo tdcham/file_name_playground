@@ -32,8 +32,6 @@ def is_valid_filename(filename):
     #this could possibly be tweaked so that we ensure that the description is relevant to the content of the file
     #this would take some work
 
-    # extension ....
-
     # Full regex pattern
     pattern = f"^{coverage_pattern}_{resolution_pattern}_{data_source_pattern}_{year_pattern}_{description_pattern}\.csv$"
 
@@ -72,7 +70,7 @@ def generate_invalid_filename():
         lambda: str(random.randint(1000, 9999999)) + ".csv",
         lambda: str(random.randint(1000, 9999)) + ''.join(
             [random.choice('abcdefghijklmnopqrstuvwxyz') for _ in range(random.randint(1, 4))]) + ".csv",
-        lambda: "a_" + ''.join([random.choice('abcdefghijklmnopqrstuvwxyz') for _ in range(50)]) + ".csv",
+        lambda: random.choice('abcdefghijklmnopqrstuvwxyz') + "".join([random.choice('abcdefghijklmnopqrstuvwxyz') for _ in range(45)]) + ".csv",
         generate_almost_valid_filename
     ]
     return random.choice(choices)()
