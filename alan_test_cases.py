@@ -4,7 +4,11 @@ import re
 import os
 
 
-#Check validation for a file name here
+#read the new CSV file
+file_path = '/Users/trinityc/Documents/BII-Work/filename_test_cases.csv'
+df_new = pd.read_csv(file_path)
+
+# Applying validation function to each filename in the dataframe and appending the results
 def is_valid_filename(file_path):
     """
     Validates the filename against a specific naming convention:
@@ -92,90 +96,14 @@ def is_valid_filename(file_path):
     else:
         return True, "Filename is Valid"
 
-# Example usage for is_valid_filename
-file_path1 = "/Users/trinityc/PycharmProject/sdc.valid_file_names_playground/ncr_broadbandnow_acs_sdad_2021_perc_income_on_internet.csv"
-file_path2 = "/path/to/data/ny_bl_acs5_2020_population.csv"
-print(is_valid_filename(file_path1))
-print(is_valid_filename(file_path2))
 
+# Applying the validation function to the dataframe
+df_new['Valid_Trin'] = df_new['filename'].apply(lambda x: is_valid_filename(x)[0])
+df_new['Notes_Trin'] = df_new['filename'].apply(lambda x: is_valid_filename(x)[1])
 
+# Displaying the results
+print(df_new[[ 'Valid_Trin', 'Notes_Trin']])
 
-#Check Validation for the contents of a csv file here:
-
-def is_valid_csv(file_path):
-    """
-    Validates a csv's structure against the established conventions:
-
-    Required columns:
-    geoid, measure, margin of error, value, year, region_type
-
-    These are the checks that need to be fufilled in order for a csv to be considered
-    "valid" and up to standards:
-
-•	Does it contain the correct number of attributes?
-•	For each attribute, is all the data contained in the file of the same data type?
-•	Is the file cleaned? Does it have missing values, Nan or Null values?
-•	Does it have a header?
-•	For each attribute, is all the data within the specified range for that attribute?
-•	Check if the file naming convention adheres to the actual data in the file.
-
-"""
-    required_columns = {'geoid', 'year', 'moe', 'measure', 'value', 'region_type'}
-    data_types = {
-        'geoid': [str, int],
-        'year': int,
-        'moe': [int, float],
-        'measure': str,
-        'value': [int, float],
-        'region_type': str
-    }
-    # Specify appropriate ranges
-    ranges = {
-        'year': range(1900, 2100),
-    }
-
-    # Read the CSV file
-    try:
-        df = pd.read_csv(file_path, dtype={'geoid': str})
-    except Exception as e:
-        print(f"An error occurred while reading the CSV file: {e}")
-        return False
-
-    # Check for header
-    if df.empty or df.columns.to_list() == list(range(len(df.columns))):
-        print("CSV file does not have a header.")
-        return False
-
-    # Check for required columns
-    if not required_columns.issubset(df.columns):
-        print("CSV file is missing one or more required columns.")
-        return False
-
-    # Check for correct data types
-    for col in required_columns:
-            # Ensure data_types[col] is a list for the 'in' operator to work correctly
-            valid_types = data_types[col] if isinstance(data_types[col], list) else [data_types[col]]
-            if df[col].dtype not in (np.dtype(t) for t in valid_types):
-                print(f"Data type for {col} is incorrect. Found {df[col].dtype}, expected {valid_types}.")
-                return False
-            if df[col].isnull().any():
-                print(f"Column {col} contains missing values.")
-                return False
-
-    # Check for data within specified ranges
-    for col, rng in ranges.items():
-        if not df[col].apply(lambda x: x in rng).all():
-            print(f"Data in column {col} is out of the specified range.")
-            return False
-
-    # If file naming is also to be validated, this should be incorporated into the function
-    # This part depends on the details of how the file name correlates to the data
-
-    print("CSV file is valid.")
-    return True
-
-# Example usage for is_valid_csv
-is_valid_csv(file_path1)
-
-
-
+#Saving csv
+output_file_path = '/Users/trinityc/Documents/BII-Work/filename_test_cases.csv'
+df_new.to_csv(output_file_path, index=False)
