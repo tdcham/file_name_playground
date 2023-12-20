@@ -68,13 +68,10 @@ Purpose: The focus of this program is to validate data filenames and the structu
 
 
 3. test_filename.py
-  Function 1: test_fnames(filename) 
-  
   Description: This function will take the filenames as the input and check if they adhere to the format of the filenames set by the division. 
-  
-    Input: Filename without the extension. 
-    
-    Output: Returns if the filename aligns with the format or not. If the filename does not align with the format it also provides information on which part of the filename has to be fixed.  
+    Function 1: test_fnames(filename) 
+      Input: Filename without the extension. 
+      Output: Returns if the filename aligns with the format or not. If the filename does not align with the format it also provides information on which part of the filename has to be fixed.  
 
 Our Workflow 
 - Utilized the For Developers Documentation for the SDC to brainstorm a checklist for file validation. 
