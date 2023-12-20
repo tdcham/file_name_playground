@@ -7,7 +7,7 @@ Guidelines for naming files
 3. A valid resolution should be one among this list ['bl', 'bg', 'tr', 'nb', 'ct', 'hd', 'co', 'pl', 'pr', 'bz', 'ca', 'ahec'] 
 4. A valid data source should be one among this list ['acs5', 'lodes', 'pseo', 'qwi', 'mcig', 'hifld', 'ookla', 'webmd', 'sdad', 'abc', 'usda', 'fa',  'acs', 'vdh', 'nchs', 'samhsa', 'schev', 'gmap'] 
 5. Year should have only numeric characters. 
-6. Title should not have space or capital letters. 
+6. The title should not have space or capital letters. 
 7. If the filename adheres to all the above guidelines, then it is in the right format. 
 
 The standardization of file naming conventions is vital for a strong workflow, especially in the data science niche. With this information, creating a program to validate data filenames contained within the Social Impact Data Commons was necessary. This allows collaborators to easily check for when their data file paths need tweaking. We also created a program that can be used to correct the filenames classified as invalid based on the contents of CSV files.  
