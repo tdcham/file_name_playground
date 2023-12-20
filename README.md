@@ -44,15 +44,15 @@ Purpose: This program is designed to address errors in file naming conventions. 
 2. file_validation.py
 Purpose: The focus of this program is to validate data filenames and the structure of these files more rigorously.
 
-Function 1: Filename Validation 
-
-Description: Similar to the first function in csv_name_convert.py, it validates a filename against the established naming convention: [coverage_a​rea]_[resolution]_[data_s​ource]_[year]_[description].csv. 
-
-Output: Returns True if the filename meets the standard naming convention; otherwise returns False. 
-
-Function 2: Data File Structure Validation 
-
-Input: File path of the filename’s CSV. 
-Output: Validates the structure of the data file against established conventions. 
-
-Limitations: Descriptions generated in generate_filename_from_csv in csv_name_convert.py are based solely on measure names. Custom descriptions need to be manually added to the filename. 
+  Function 1: Filename Validation 
+  
+    Description: Similar to the first function in csv_name_convert.py, it validates a filename against the established naming convention: [coverage_a​rea]_[resolution]_[data_s​ource]_[year]_[description].csv. 
+    
+    Output: Returns True if the filename meets the standard naming convention; otherwise returns False. 
+  
+  Function 2: Data File Structure Validation 
+  
+    Input: File path of the filename’s CSV. 
+    Output: Validates the structure of the data file against established conventions. 
+    
+    Limitations: Descriptions generated in generate_filename_from_csv in csv_name_convert.py are based solely on measure names. Custom descriptions need to be manually added to the filename. 
