@@ -25,21 +25,21 @@ Functions
 1. csv_name_convert.py
 Purpose: This program is designed to address errors in file naming conventions. It contains two primary functions:
 
-Function 1: is_valid_filename(file_path) 
-
-Input: A string representing a filename. 
-Output: Returns True if the filename adheres to the established naming convention [coverage_a​rea]_[resolution]_[data_s​ource]_[year]_[description].csv. 
-otherwise returns False. 
-
-Assumptions: Assumes that the filename to be validated is provided as a string. 
-
-Function 2: generate_filename_from_csv(csv_path) 
-
-Input: File path of the CSV file. 
-Output: Generates and returns a new filename based on the established naming convention, using data extracted from the provided CSV file. 
-
-Conditions: This function is triggered only if is_valid_filename returns False. 
-Limitations: The CSV file must be in the same directory as the program. 
+  Function 1: is_valid_filename(file_path) 
+  
+    Input: A string representing a filename. 
+    Output: Returns True if the filename adheres to the established naming convention [coverage_a​rea]_[resolution]_[data_s​ource]_[year]_[description].csv. 
+    otherwise returns False. 
+    
+    Assumptions: Assumes that the filename to be validated is provided as a string. 
+  
+  Function 2: generate_filename_from_csv(csv_path) 
+  
+    Input: File path of the CSV file. 
+    Output: Generates and returns a new filename based on the established naming convention, using data extracted from the provided CSV file. 
+    
+    Conditions: This function is triggered only if is_valid_filename returns False. 
+    Limitations: The CSV file must be in the same directory as the program. 
 
 2. file_validation.py
 Purpose: The focus of this program is to validate data filenames and the structure of these files more rigorously.
