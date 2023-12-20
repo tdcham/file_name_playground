@@ -1,3 +1,3 @@
 # Validating Filenames
-## By Nakshatra Yalagach and Trinity Chamblin 
+By Nakshatra Yalagach and Trinity Chamblin 
 
