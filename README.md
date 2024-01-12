@@ -46,9 +46,9 @@ Program Guidelines for Valid Data Structure
 
 
 
-Program Names and Descriptions:
+## Program Names and Descriptions:
 
-1. file_validation.py [Download Link here]
+### 1. file_validation.py [Download Link here]
 Purpose: The focus of  program is to validate data filenames and the structure of these files more rigorously.
 
 Function 1: is_valid_filename(file_path)
@@ -93,7 +93,7 @@ Limitations:
 Current code in is_valid_filename only takes in account one filename at a time, however, curtain lines of code can be manipulated to test a CSV full of filenames.
 
 
-2. csv_name_convert.py [Download Link here]
+### 2. csv_name_convert.py [Download Link here]
 Purpose: This program is designed to directly address errors in file naming conventions. It contains two primary functions:
 
 Function 1: is_valid_filename(file_path)
@@ -112,7 +112,7 @@ Function 2: generate_filename_from_csv(csv_path)
 Limitations: 
 Descriptions generated in generate_filename_from_csv are based solely on measure names. Custom descriptions need to be manually added to the filename.
 
-3. test_filename.py [Download Link here]
+### 3. test_filename.py [Download Link here]
 Function 1: test_fnames(filename)
 Description: This function will take the filenames as the input and checks if it adheres to the format of the filenames set by the division.
 
@@ -120,23 +120,23 @@ Description: This function will take the filenames as the input and checks if it
        Output: Returns if the filename aligns with the format or not. If the filename does not align with the format, it also provides information on which part of the filename must be fixed. 
 
 Our Workflow
-•	Utilized the For Developers Documentation for the SDC to brainstorm a checklist for file validation.
-•	Used regular expression to create a standardized formula for a filename pattern to be considered “valid.”
-•	Used the regex formula to create a classifier for file naming.
-•	Used standards for data files to create a classifier for data files (.csv)
-•	Randomly generated valid and invalid test cases (filenames and data files) for classifiers 
-•	Made edits to classifiers to improve their efficiency.
+-	Utilized the For Developers Documentation for the SDC to brainstorm a checklist for file validation.
+-	Used regular expression to create a standardized formula for a filename pattern to be considered “valid.”
+-	Used the regex formula to create a classifier for file naming.
+-	Used standards for data files to create a classifier for data files (.csv)
+-	Randomly generated valid and invalid test cases (filenames and data files) for classifiers 
+-	Made edits to classifiers to improve their efficiency.
 
-Methods
+## Methods
 When it comes to checking for errors, we consider the "miss by one” error to be very likely to occur, therefore we wrote precise regular expression checks that would report a misnamed error even if a single character is out of place. For example, for our tests, we had a test for extra characters in each expected substring even accounting for the very extreme cases such as very long filenames, many spaces, and special characters. 
 
 We also anticipate that data preparers can accidentally update the data in the file without updating the file names. For example, a data preparer adds new geographies for Maryland into a dataset but has yet to update the file name to include Maryland. 
 
-Future Evaluation Methods
+## Future Evaluation Methods
 We plan to run our code against files in sdc.all and find out the number of csv data files that are properly named and calculate the percentages of the common ways that files are misnamed. For example: 
-[%] Capitalized Names
-[%] Misspelled Names      
-[%] File Name Data Mismatches
+- [%] Capitalized Names
+- [%] Misspelled Names      
+- [%] File Name Data Mismatches
 
 If you have any questions or concerns about file_validation.py or csv_name_convert.py (file_path) 
  contact Trinity Chamblin (huz2ph@virginia.edu)
