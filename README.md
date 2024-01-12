@@ -48,7 +48,7 @@ Program Guidelines for Valid Data Structure
 
 ## Program Names and Descriptions:
 
-### 1. file_validation.py [Download Link here]
+### 1. file_validation.py - Trinity Chamblin
 Purpose: The focus of  program is to validate data filenames and the structure of these files more rigorously.
 
 Function 1: is_valid_filename(file_path)
@@ -93,7 +93,7 @@ Limitations:
 Current code in is_valid_filename only takes in account one filename at a time, however, curtain lines of code can be manipulated to test a CSV full of filenames.
 
 
-### 2. csv_name_convert.py [Download Link here]
+### 2. csv_name_convert.py - Trinity Chamblin
 Purpose: This program is designed to directly address errors in file naming conventions. It contains two primary functions:
 
 Function 1: is_valid_filename(file_path)
@@ -112,7 +112,7 @@ Function 2: generate_filename_from_csv(csv_path)
 Limitations: 
 Descriptions generated in generate_filename_from_csv are based solely on measure names. Custom descriptions need to be manually added to the filename.
 
-### 3. test_filename.py [Download Link here]
+### 3. test_filename.py - Nakshatra Yalagach
 Function 1: test_fnames(filename)
 Description: This function will take the filenames as the input and checks if it adheres to the format of the filenames set by the division.
 
