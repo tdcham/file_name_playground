@@ -1,8 +1,9 @@
+#Code by Trinity Chamblin
+
 import pandas as pd
 import numpy as np
 import re
 import os
-
 
 #read the new CSV file
 file_path = '/Users/trinityc/Documents/BII-Work/filename_test_cases.csv'

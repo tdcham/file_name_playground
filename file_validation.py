@@ -1,8 +1,13 @@
+#Code by Trinity Chamblin
+
 import pandas as pd
 import numpy as np
 import re
 import os
 
+# #read the data frame of filenames
+# file_path = '/Users/trinityc/Documents/BII-Work/filename_test_cases.csv'
+# df_new = pd.read_csv(file_path)
 
 #Check validation for a file name here
 def is_valid_filename(file_path):
@@ -92,11 +97,19 @@ def is_valid_filename(file_path):
     else:
         return True, "Filename is Valid"
 
-# Example usage for is_valid_filename
+# Example of a single filename validation for is_valid_filename
 file_path1 = "/Users/trinityc/PycharmProject/sdc.valid_file_names_playground/ncr_broadbandnow_acs_sdad_2021_perc_income_on_internet.csv"
-file_path2 = "/path/to/data/ny_bl_acs5_2020_population.csv"
 print(is_valid_filename(file_path1))
-print(is_valid_filename(file_path2))
+
+#Example of applying the validation function to a dataframe of many filenames
+# df_new['Valid'] = df_new['filename'].apply(lambda x: is_valid_filename(x)[0])
+# df_new['Notes'] = df_new['filename'].apply(lambda x: is_valid_filename(x)[1])
+#
+# # Displaying the results
+# print(df_new[[ 'Valid', 'Notes']])
+#
+# #Saving csv
+# df_new.to_csv(output_file_path, index=False)
 
 
 
