@@ -48,79 +48,98 @@ Program Guidelines for Valid Data Structure
 
 Program Names and Descriptions:
 
-1. csv_name_convert.py
-Purpose: This program is designed to address errors in file naming conventions. It contains two primary functions:
+1. file_validation.py [Download Link here]
+Purpose: The focus of  program is to validate data filenames and the structure of these files more rigorously.
 
-  Function 1: is_valid_filename(file_path) 
+Function 1: is_valid_filename(file_path)
+Validates a filename against the established naming convention:
+ [coverage_area]_[resolution]_[data_source]_[year]_[description].csv.
+     
+    Input: Full file path of the CSV file as a string
+     
+    Output: Returns True, “Filename is Valid” if the filename meets the standard naming convention; returns False and prints how, where, or why an error is located by displaying one of the following  string values:
+       “Filename contains Special characters.”
+       “Filename has no structure” (no underscores separating information)
+       “Capitalized Character in Filename”
+       “Space in Filename”
+       “Coverage Area Does Not Exist” (An unknown abbreviation is used as the coverage area)
+       “Coverage Area is Incorrectly Formatted, Replace (incorrect string) with Coverage Area”
+       “Invalid or missing coverage area” (The coverage area is nowhere in the filename)
+       “Resolution is Incorrectly Formatted, Replace (incorrect string) with Resolution”
+       “Invalid or missing resolution” (The resolution is nowhere in the filename, or a different unknown abbreviation is used as the resolution)
+       “Invalid or missing data source” (The data source is nowhere in the filename, or a different unknown abbreviation is used as the data source)
+       “Data Source is Incorrectly Formatted, Replace (incorrect string) with Source”
+       “Invalid or missing year” (The year is nowhere to be found in the filename, or a different unknown abbreviation is used as the year value)
+       “Invalid or missing description” (The description is nowhere to be found in the filename)
+
+
+
+Function 2: is_valid_csv (file_path) 
+Validates the data and structure of a CSV against the established conventions
+
+    Input: Full file path of the filename’s CSV as a string.
+       
+    Output: Returns True, “CSV file is valid” if the file adheres to the established conventions; returns False and prints how, where, or why an error is located by displaying one of the following  string values: 
+       *Note* that “col” is a file’s column name 
+       
+       “An error occurred while reading the CSV file: file_path”
+       “CSV file does not have a header.”
+       “CSV file is missing one or more required columns.”
+       “Data type for (col) is incorrect. Found (data type of col), expected {valid type).”
+       “Column contains missing values.”
+       “Data in column (col) is out of the specified range.”
+
+Limitations: 
+Current code in is_valid_filename only takes in account one filename at a time, however, curtain lines of code can be manipulated to test a CSV full of filenames.
+
+
+2. csv_name_convert.py [Download Link here]
+Purpose: This program is designed to directly address errors in file naming conventions. It contains two primary functions:
+
+Function 1: is_valid_filename(file_path)
+Validates a filename against the established naming convention
+         
+     Input: Full file path of the CSV file as a string.
+     Output: Returns True if the filename adheres to the established naming convention [coverage_area]_[resolution]_[data_source]_[year]_[description].csv.
+otherwise returns False.
+
+Function 2: generate_filename_from_csv(csv_path)
   
-    Input: A string representing a filename. 
-    Output: Returns True if the filename adheres to the established naming convention [coverage_a​rea]_[resolution]_[data_s​ource]_[year]_[description].csv. 
-    otherwise returns False. 
-    
-    Assumptions: Assumes that the filename to be validated is provided as a string. 
-  
-  Function 2: generate_filename_from_csv(csv_path) 
-  
-    Input: File path of the CSV file. 
-    Output: Generates and returns a new filename based on the established naming convention, using data extracted from the provided CSV file. 
-    
-    Conditions: This function is triggered only if is_valid_filename returns False. 
-    
-Limitations: Current code in is_valid_filename only takes into account one filename at a time, however, curtain lines of code can be manipulated to test a CSV full of filenames.
+     Input: Full file path of the CSV file as a string.
+     Output: Generates and returns a new filename based on the established naming convention, using data extracted from the provided CSV file.
+     Conditions: This function is triggered only if is_valid_filename returns False.
+        
+Limitations: 
+Descriptions generated in generate_filename_from_csv are based solely on measure names. Custom descriptions need to be manually added to the filename.
 
+3. test_filename.py [Download Link here]
+Function 1: test_fnames(filename)
+Description: This function will take the filenames as the input and checks if it adheres to the format of the filenames set by the division.
 
-2. file_validation.py
-Purpose: The focus of this program is to validate data filenames and the structure of these files more rigorously.
+       Input: Filename without the extension.
+       Output: Returns if the filename aligns with the format or not. If the filename does not align with the format, it also provides information on which part of the filename must be fixed. 
 
-  Function 1: Filename Validation 
-  
-    Description: Similar to the first function in csv_name_convert.py, it validates a filename against the established naming convention: [coverage_a​rea]_[resolution]_[data_s​ource]_[year]_[description].csv. 
-    
-    Output: Returns True if the filename meets the standard naming convention; otherwise returns False. 
-  
-  Function 2: Data File Structure Validation 
-  
-    Input: File path of the filename’s CSV. 
-    Output: Validates the structure of the data file against established conventions. 
-    
-Limitations: Descriptions generated in generate_filename_from_csv are based solely on measure names. Custom descriptions need to be manually added to the filename.
+Our Workflow
+•	Utilized the For Developers Documentation for the SDC to brainstorm a checklist for file validation.
+•	Used regular expression to create a standardized formula for a filename pattern to be considered “valid.”
+•	Used the regex formula to create a classifier for file naming.
+•	Used standards for data files to create a classifier for data files (.csv)
+•	Randomly generated valid and invalid test cases (filenames and data files) for classifiers 
+•	Made edits to classifiers to improve their efficiency.
 
-
-
-3. test_filename.py
-Purpose: This program will take the filenames as input and check if they adhere to the format of the filenames set by the division.
-
-  Function 1: test_fnames(filename) 
-  
-    Input: Filename without the extension. 
-    Output: Returns if the filename aligns with the format or not. If the filename does not align with the format it also provides information on which part of the filename has to be fixed.  
-
-Our Workflow 
-- Utilized the For Developers Documentation for the SDC to brainstorm a checklist for file validation. 
--  Used regular expression to create a standardized formula for a filename pattern to be considered “valid.” 
-- Used the regex formula to create a classifier for file naming. 
-- Used standards for data files to create a classifier for data files (.csv) 
-- Randomly generated valid and invalid test cases (filenames and data files) for classifiers  
-- Made edits to classifiers to improve their efficiency.
-
-Methods 
-
+Methods
 When it comes to checking for errors, we consider the "miss by one” error to be very likely to occur, therefore we wrote precise regular expression checks that would report a misnamed error even if a single character is out of place. For example, for our tests, we had a test for extra characters in each expected substring even accounting for the very extreme cases such as very long filenames, many spaces, and special characters. 
 
 We also anticipate that data preparers can accidentally update the data in the file without updating the file names. For example, a data preparer adds new geographies for Maryland into a dataset but has yet to update the file name to include Maryland. 
 
-
 Future Evaluation Methods
-
-We plan to run our code against files in sdc.all and find out the number of CSV data files that are properly named and calculate the percentages of the common ways that files are misnamed. For example: 
+We plan to run our code against files in sdc.all and find out the number of csv data files that are properly named and calculate the percentages of the common ways that files are misnamed. For example: 
 [%] Capitalized Names
 [%] Misspelled Names      
 [%] File Name Data Mismatches
 
-
 If you have any questions or concerns about file_validation.py or csv_name_convert.py (file_path) 
- contact Trinity Chamblin (huz2ph@virginia.edu). If you have any questions or concerns about test_filename.py  contact Nakshatra Yalagach (jhj5dh@virginia.edu)
+ contact Trinity Chamblin (huz2ph@virginia.edu)
 
+If you have any questions or concerns about test_filename.py  contact Nakshatra Yalagach (jhj5dh@virginia.edu)
 
-
-  
