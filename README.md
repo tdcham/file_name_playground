@@ -1,16 +1,9 @@
 # Validating Filenames
 By Nakshatra Yalagach and Trinity Chamblin 
 
-Guidelines for naming files
-1. The filename should have 5 parts I.e., coverage area, resolution, data source, year and title. 
-2. A valid coverage area should be one among this list ['ncr', 'va', 'us', 'va013', 'va059'] 
-3. A valid resolution should be one among this list ['bl', 'bg', 'tr', 'nb', 'ct', 'hd', 'co', 'pl', 'pr', 'bz', 'ca', 'ahec'] 
-4. A valid data source should be one among this list ['acs5', 'lodes', 'pseo', 'qwi', 'mcig', 'hifld', 'ookla', 'webmd', 'sdad', 'abc', 'usda', 'fa',  'acs', 'vdh', 'nchs', 'samhsa', 'schev', 'gmap'] 
-5. Year should have only numeric characters. 
-6. The title should not have space or capital letters. 
-7. If the filename adheres to all the above guidelines, then it is in the right format. 
-
 The standardization of file naming conventions is vital for a strong workflow, especially in the data science niche. With this information, creating a program to validate data filenames contained within the Social Impact Data Commons was necessary. This allows collaborators to easily check for when their data file paths need tweaking. We also created a program that can be used to correct the filenames classified as invalid based on the contents of CSV files.  
+
+The following bullet points are the elements that need to be satisfied to classify a filename and csv as valid, if at least one of these aren’t met, it is classified as invalid
 
 The following are the elements that need to be satisfied to classify a filename and CSV as valid, if at least one of these isn’t met, it is classified as invalid: 
 1. File Names
@@ -30,7 +23,31 @@ The following are the elements that need to be satisfied to classify a filename 
 - For each attribute, is all the data within the specified range for that attribute? 
 - Check if the file naming convention adheres to the actual data in the file.
 
-Functions
+Based on the above questions, we came up with a few guidelines that files need to follow to be validated in our filename playground:
+
+Program Guidelines for Valid File Names
+
+1.	The filename should have 5 parts I.e., coverage area, resolution, data source, year and title.
+2.	A valid coverage area should be one among this list ['ncr', 'va', 'us', 'va013', 'va059']
+3.	A valid resolution should be one among this list ['bl', 'bg', 'tr', 'nb', 'ct', 'hd', 'co', 'pl', 'pr', 'bz', 'ca', 'ahec']
+4.	A valid data source should be one among this list ['acs5', 'lodes', 'pseo', 'qwi', 'mcig', 'hifld', 'ookla', 'webmd', 'sdad', 'abc', 'usda', 'fa',  'acs', 'vdh', 'nchs', 'samhsa', 'schev', 'gmap']
+5.	Year should have only numeric characters (accounts for dashes within year values to account for files displaying data over time e.g “2019-2021”).
+6.	The title should not have space or capital letters.
+7.	If the filename adheres to all the above guidelines, then it is in the right format.
+
+Program Guidelines for Valid Data Structure
+
+1.	The data file is a CSV.
+2.	The data file has the required column names among this list [ 'geoid', 'year', 'moe', 'measure', 'value', 'region_type']
+3.	The data file contains a header.
+4.	The data file contains the correct data types in each column respectively: 'geoid': [str, int], 'year': int, 'moe': [int, float], 'measure': str, 'value': [int, float], 'region_type': str
+5.	The data file does not contain missing values in its columns.
+6.	The data file contains data within its columns’  specified ranges (e.g year: range (1900, 2100))
+
+
+
+Program Names and Descriptions:
+
 1. csv_name_convert.py
 Purpose: This program is designed to address errors in file naming conventions. It contains two primary functions:
 
@@ -48,7 +65,9 @@ Purpose: This program is designed to address errors in file naming conventions. 
     Output: Generates and returns a new filename based on the established naming convention, using data extracted from the provided CSV file. 
     
     Conditions: This function is triggered only if is_valid_filename returns False. 
-    Limitations: The CSV file must be in the same directory as the program. 
+    
+Limitations: Current code in is_valid_filename only takes into account one filename at a time, however, curtain lines of code can be manipulated to test a CSV full of filenames.
+
 
 2. file_validation.py
 Purpose: The focus of this program is to validate data filenames and the structure of these files more rigorously.
@@ -64,11 +83,12 @@ Purpose: The focus of this program is to validate data filenames and the structu
     Input: File path of the filename’s CSV. 
     Output: Validates the structure of the data file against established conventions. 
     
-    Limitations: Descriptions generated in generate_filename_from_csv in csv_name_convert.py are based solely on measure names. Custom descriptions need to be manually added to the filename. 
+Limitations: Descriptions generated in generate_filename_from_csv are based solely on measure names. Custom descriptions need to be manually added to the filename.
+
 
 
 3. test_filename.py
-Purpose: This program will take the filenames as the input and check if they adhere to the format of the filenames set by the division.
+Purpose: This program will take the filenames as input and check if they adhere to the format of the filenames set by the division.
 
   Function 1: test_fnames(filename) 
   
@@ -85,15 +105,22 @@ Our Workflow
 
 Methods 
 
-When it comes to checking for errors, we consider the "miss by one” error to be very likely to occur, therefore we wrote precise regular expression checks that would report a misnamed error even if a single character is out of place. For example , for our tests, we had a test for extra characters in each expected substring.  
+When it comes to checking for errors, we consider the "miss by one” error to be very likely to occur, therefore we wrote precise regular expression checks that would report a misnamed error even if a single character is out of place. For example, for our tests, we had a test for extra characters in each expected substring even accounting for the very extreme cases such as very long filenames, many spaces, and special characters. 
 
-We also anticipate that data preparers can accidently update the data in the file without updating the file names. For example, a data preparer adds new geographies for Maryland into a dataset but has yet to update the file name to include Maryland.  
+We also anticipate that data preparers can accidentally update the data in the file without updating the file names. For example, a data preparer adds new geographies for Maryland into a dataset but has yet to update the file name to include Maryland. 
 
-Evaluation 
 
-We ran our code against files in sdc.all and found that out of all [# of data csv files]  data csv files, [# properly named] are properly named. Here are the most common ways that files are misnamed: 
+Future Evaluation Methods
 
-- Capitalized Names 
-- Misspelled Names       
-- File Name Data Mismatches
+We plan to run our code against files in sdc.all and find out the number of CSV data files that are properly named and calculate the percentages of the common ways that files are misnamed. For example: 
+[%] Capitalized Names
+[%] Misspelled Names      
+[%] File Name Data Mismatches
+
+
+If you have any questions or concerns about file_validation.py or csv_name_convert.py (file_path) 
+ contact Trinity Chamblin (huz2ph@virginia.edu). If you have any questions or concerns about test_filename.py  contact Nakshatra Yalagach (jhj5dh@virginia.edu)
+
+
+
   
